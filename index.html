@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BARŚ — создано для амбициозных</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ink: #0b0c0f;
+				--ink-2: #141620;
+				--paper: #ede9df;
+				--white: #f6f4ee;
+				--rust: #c8362a;
+				--rust-2: #a82c22;
+				--slate: #3c4550;
+				--gold: #c9a05c;
+				--line: rgba(246, 244, 238, 0.12);
+				--max: 1240px;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				background: var(--ink);
+				color: var(--white);
+				font-family: 'Inter', sans-serif;
+				-webkit-font-smoothing: antialiased;
+				overflow-x: hidden;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+			ul {
+				list-style: none;
+			}
+			img,
+			svg {
+				display: block;
+			}
+			.wrap {
+				max-width: var(--max);
+				margin: 0 auto;
+				padding: 0 32px;
+			}
+			.eyebrow {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 12px;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--gold);
+			}
+			h1,
+			h2,
+			h3,
+			.disp {
+				font-family: 'Big Shoulders Display', sans-serif;
+				text-transform: uppercase;
+				line-height: 0.92;
+				letter-spacing: 0.01em;
+			}
+			button {
+				font-family: inherit;
+				cursor: pointer;
+				border: none;
+			}
+			:focus-visible {
+				outline: 2px solid var(--gold);
+				outline-offset: 3px;
+			}
+
+			/* ===== marquee tag strip ===== */
+			.tagbar {
+				background: var(--rust);
+				color: var(--white);
+				overflow: hidden;
+				white-space: nowrap;
+				border-bottom: 1px solid var(--line);
+			}
+			.tagbar-track {
+				display: inline-flex;
+				animation: marquee 22s linear infinite;
+			}
+			.tagbar-track span {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 12px;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				padding: 9px 28px;
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				border-right: 1px solid rgba(255, 255, 255, 0.25);
+			}
+			@keyframes marquee {
+				from {
+					transform: translateX(0);
+				}
+				to {
+					transform: translateX(-50%);
+				}
+			}
+
+			/* ===== header ===== */
+			header {
+				position: sticky;
+				top: 0;
+				z-index: 50;
+				background: rgba(11, 12, 15, 0.86);
+				backdrop-filter: blur(10px);
+				border-bottom: 1px solid var(--line);
+			}
+			nav.wrap {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				height: 78px;
+			}
+			.logo {
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-size: 28px;
+				font-weight: 900;
+				text-transform: uppercase;
+				letter-spacing: 0.02em;
+			}
+			.logo sup {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 10px;
+				color: var(--gold);
+				letter-spacing: 0.1em;
+				vertical-align: super;
+				margin-left: 6px;
+			}
+			.navlinks {
+				display: flex;
+				gap: 36px;
+			}
+			.navlinks a {
+				font-size: 13px;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				font-weight: 600;
+				color: var(--white);
+				opacity: 0.75;
+				position: relative;
+				padding-bottom: 4px;
+			}
+			.navlinks a::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 0;
+				height: 1px;
+				background: var(--rust);
+				transition: width 0.25s;
+			}
+			.navlinks a:hover {
+				opacity: 1;
+			}
+			.navlinks a:hover::after {
+				width: 100%;
+			}
+			.navright {
+				display: flex;
+				align-items: center;
+				gap: 22px;
+			}
+			.cart-btn {
+				background: transparent;
+				color: var(--white);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-size: 13px;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				font-weight: 600;
+				padding: 9px 16px;
+				border: 1px solid var(--line);
+				border-radius: 2px;
+				transition:
+					border-color 0.2s,
+					background 0.2s;
+			}
+			.cart-btn:hover {
+				border-color: var(--gold);
+				background: rgba(201, 160, 92, 0.08);
+			}
+			.cart-count {
+				background: var(--rust);
+				color: var(--white);
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				min-width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0 4px;
+			}
+
+			/* ===== hero ===== */
+			.hero {
+				position: relative;
+				min-height: 92vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding-top: 78px;
+				background: var(--ink);
+				overflow: hidden;
+				contain: layout style paint;
+				will-change: transform;
+			}
+			.hero-video {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 0;
+				backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				transform: translateZ(0);
+				-webkit-transform: translateZ(0);
+			}
+			.hero::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: rgba(11, 12, 15, 0.58);
+				z-index: 1;
+				backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+			}
+			.hero-bg-image {
+				display: none;
+			}
+			.peaks {
+				display: none;
+			}
+			.hero-inner {
+				position: relative;
+				z-index: 2;
+				backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				transform: translateZ(0);
+				-webkit-transform: translateZ(0);
+			}
+			.hero h1 {
+				font-size: clamp(56px, 10vw, 148px);
+				font-weight: 900;
+			}
+			.hero h1 .accent {
+				color: var(--rust);
+			}
+			.hero-sub {
+				max-width: 480px;
+				margin-top: 26px;
+				font-size: 16px;
+				line-height: 1.6;
+				color: rgba(246, 244, 238, 0.7);
+			}
+			.hero-cta {
+				margin-top: 38px;
+				display: flex;
+				gap: 16px;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				padding: 16px 30px;
+				font-size: 13px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				font-weight: 700;
+				border-radius: 2px;
+				transition:
+					transform 0.2s,
+					background 0.2s;
+			}
+			.btn-primary {
+				background: var(--rust);
+				color: var(--white);
+			}
+			.btn-primary:hover {
+				background: var(--rust-2);
+				transform: translateY(-2px);
+			}
+			.btn-ghost {
+				border: 1px solid var(--line);
+				color: var(--white);
+			}
+			.btn-ghost:hover {
+				border-color: var(--gold);
+			}
+			.hero-stats {
+				position: relative;
+				z-index: 2;
+				display: flex;
+				gap: 56px;
+				margin-top: 70px;
+				font-family: 'IBM Plex Mono', monospace;
+			}
+			.hero-stats div b {
+				display: block;
+				font-size: 26px;
+				color: var(--white);
+			}
+			.hero-stats div span {
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--gold);
+			}
+
+			/* ===== claw divider — signature element ===== */
+			.claw {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				max-width: var(--max);
+				margin: 0 auto;
+				padding: 0 32px;
+			}
+			.claw span {
+				height: 2px;
+				flex: 1;
+				background: var(--line);
+				position: relative;
+			}
+			.claw span:nth-child(1) {
+				flex: 0 0 40px;
+				background: var(--rust);
+			}
+			.claw span:nth-child(2) {
+				transform: skewX(-20deg);
+			}
+			.claw span:nth-child(3) {
+				transform: skewX(-14deg);
+				opacity: 0.6;
+			}
+			.claw span:nth-child(4) {
+				transform: skewX(-8deg);
+				opacity: 0.3;
+			}
+			.claw-section {
+				padding: 64px 0 8px;
+			}
+
+			/* ===== section shell ===== */
+			section {
+				padding: 110px 0;
+			}
+			.section-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: 52px;
+				gap: 24px;
+				flex-wrap: wrap;
+			}
+			.section-head h2 {
+				font-size: clamp(36px, 5vw, 58px);
+				font-weight: 800;
+			}
+			.section-head p {
+				max-width: 340px;
+				color: rgba(246, 244, 238, 0.6);
+				font-size: 14px;
+				line-height: 1.6;
+			}
+
+			/* ===== categories ===== */
+			.cat-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2px;
+			}
+			.cat-card {
+				position: relative;
+				aspect-ratio: 3/4;
+				overflow: hidden;
+				background: var(--ink-2);
+				display: flex;
+				align-items: flex-end;
+				padding: 22px;
+				transition: background 0.3s;
+			}
+			.cat-card:nth-child(1) {
+				background: #171a22;
+			}
+			.cat-card:nth-child(2) {
+				background: var(--rust);
+			}
+			.cat-card:nth-child(3) {
+				background: #171a22;
+			}
+			.cat-card:nth-child(4) {
+				background: #20242f;
+			}
+			.cat-card:hover {
+				filter: brightness(1.12);
+			}
+			.cat-card svg {
+				position: absolute;
+				top: 26px;
+				left: 22px;
+				width: 46px;
+				height: 46px;
+				opacity: 0.9;
+			}
+			.cat-card b {
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-size: 26px;
+				text-transform: uppercase;
+				font-weight: 800;
+				position: relative;
+				z-index: 2;
+			}
+			.cat-card .count {
+				position: absolute;
+				top: 22px;
+				right: 22px;
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				opacity: 0.7;
+			}
+
+			/* ===== products ===== */
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 22px;
+			}
+			.card {
+				background: var(--ink-2);
+				border: 1px solid var(--line);
+				border-radius: 3px;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+			}
+			.card-media {
+				position: relative;
+				aspect-ratio: 4/5;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+			}
+			.card-media svg {
+				width: 56%;
+				height: 56%;
+				position: relative;
+				z-index: 2;
+			}
+			.tag {
+				position: absolute;
+				top: 14px;
+				right: -30px;
+				background: var(--paper);
+				color: var(--ink);
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				font-weight: 600;
+				padding: 5px 34px;
+				transform: rotate(6deg);
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+				z-index: 3;
+			}
+			.card-add {
+				position: absolute;
+				left: 14px;
+				right: 14px;
+				bottom: -52px;
+				background: var(--white);
+				color: var(--ink);
+				padding: 12px;
+				text-align: center;
+				font-size: 12px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				font-weight: 700;
+				border-radius: 2px;
+				transition: bottom 0.28s ease;
+				z-index: 4;
+			}
+			.card:hover .card-add {
+				bottom: 14px;
+			}
+			.card-body {
+				padding: 16px 16px 18px;
+			}
+			.card-body .eyebrow {
+				margin-bottom: 6px;
+			}
+			.card-body h3 {
+				font-family: 'Inter', sans-serif;
+				font-size: 15px;
+				font-weight: 600;
+				text-transform: none;
+				line-height: 1.3;
+			}
+			.card-price {
+				margin-top: 10px;
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 14px;
+				color: var(--gold);
+			}
+
+			/* ===== story ===== */
+			.story {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 64px;
+				align-items: center;
+			}
+			.story-media {
+				aspect-ratio: 4/3;
+				background: linear-gradient(135deg, #171a22, #20242f);
+				border-radius: 3px;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.story-media svg {
+				width: 44%;
+				opacity: 0.9;
+			}
+			.story h2 {
+				font-size: clamp(32px, 4.5vw, 52px);
+				margin-bottom: 22px;
+				font-weight: 800;
+			}
+			.story p {
+				color: rgba(246, 244, 238, 0.68);
+				line-height: 1.75;
+				font-size: 15px;
+				margin-bottom: 16px;
+				max-width: 460px;
+			}
+			.story-stats {
+				display: flex;
+				gap: 40px;
+				margin-top: 32px;
+			}
+			.story-stats div b {
+				display: block;
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-size: 34px;
+				font-weight: 800;
+			}
+			.story-stats div span {
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--gold);
+				font-family: 'IBM Plex Mono', monospace;
+			}
+
+			/* ===== newsletter ===== */
+			.news {
+				background: var(--paper);
+				color: var(--ink);
+				border-radius: 4px;
+				padding: 64px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 40px;
+				flex-wrap: wrap;
+			}
+			.news h2 {
+				font-size: clamp(28px, 4vw, 42px);
+				font-weight: 800;
+				max-width: 420px;
+			}
+			.news-form {
+				display: flex;
+				gap: 0;
+				border: 1px solid var(--ink);
+				border-radius: 2px;
+				overflow: hidden;
+				min-width: 340px;
+			}
+			.news-form input {
+				flex: 1;
+				border: none;
+				background: transparent;
+				padding: 16px 18px;
+				font-family: 'Inter';
+				font-size: 14px;
+				color: var(--ink);
+			}
+			.news-form input:focus {
+				outline: none;
+			}
+			.news-form button {
+				background: var(--ink);
+				color: var(--white);
+				padding: 0 26px;
+				font-size: 12px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+
+			/* ===== footer ===== */
+			footer {
+				border-top: 1px solid var(--line);
+				padding: 56px 0 32px;
+			}
+			.foot-top {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 32px;
+				margin-bottom: 48px;
+			}
+			.foot-col h4 {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 12px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--gold);
+				margin-bottom: 16px;
+			}
+			.foot-col a,
+			.foot-col p {
+				display: block;
+				font-size: 14px;
+				color: rgba(246, 244, 238, 0.65);
+				margin-bottom: 10px;
+			}
+			.foot-col a:hover {
+				color: var(--white);
+			}
+			.foot-bottom {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 12px;
+				padding-top: 24px;
+				border-top: 1px solid var(--line);
+				font-size: 12px;
+				color: rgba(246, 244, 238, 0.4);
+			}
+
+			/* ===== cart drawer ===== */
+			.overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.55);
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.3s;
+				z-index: 90;
+			}
+			.overlay.open {
+				opacity: 1;
+				pointer-events: auto;
+			}
+			.drawer {
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				width: 420px;
+				max-width: 92vw;
+				background: var(--ink-2);
+				border-left: 1px solid var(--line);
+				z-index: 99;
+				transform: translateX(100%);
+				transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+				display: flex;
+				flex-direction: column;
+			}
+			.drawer.open {
+				transform: translateX(0);
+			}
+			.drawer-head {
+				padding: 26px 28px;
+				border-bottom: 1px solid var(--line);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.drawer-head h3 {
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-size: 24px;
+				font-weight: 800;
+				text-transform: uppercase;
+			}
+			.drawer-close {
+				background: none;
+				color: var(--white);
+				font-size: 22px;
+				line-height: 1;
+				opacity: 0.7;
+			}
+			.drawer-close:hover {
+				opacity: 1;
+			}
+			.drawer-items {
+				flex: 1;
+				overflow-y: auto;
+				padding: 12px 28px;
+			}
+			.drawer-empty {
+				padding: 60px 0;
+				text-align: center;
+				color: rgba(246, 244, 238, 0.5);
+				font-size: 14px;
+			}
+			.drawer-item {
+				display: flex;
+				gap: 14px;
+				padding: 18px 0;
+				border-bottom: 1px solid var(--line);
+			}
+			.di-media {
+				width: 64px;
+				height: 76px;
+				border-radius: 2px;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.di-media svg {
+				width: 60%;
+				height: 60%;
+			}
+			.di-info {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+			}
+			.di-info h4 {
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.di-info .eyebrow {
+				font-size: 10px;
+			}
+			.di-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: auto;
+			}
+			.qty {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 13px;
+			}
+			.qty button {
+				background: none;
+				color: var(--white);
+				border: 1px solid var(--line);
+				width: 22px;
+				height: 22px;
+				border-radius: 2px;
+				font-size: 13px;
+				line-height: 1;
+			}
+			.qty button:hover {
+				border-color: var(--gold);
+			}
+			.di-price {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 13px;
+				color: var(--gold);
+			}
+			.di-remove {
+				font-size: 11px;
+				color: rgba(246, 244, 238, 0.4);
+				text-decoration: underline;
+				align-self: flex-start;
+			}
+			.di-remove:hover {
+				color: var(--rust);
+			}
+			.drawer-foot {
+				padding: 24px 28px 30px;
+				border-top: 1px solid var(--line);
+			}
+			.drawer-sub {
+				display: flex;
+				justify-content: space-between;
+				font-size: 14px;
+				margin-bottom: 16px;
+			}
+			.drawer-sub b {
+				font-family: 'IBM Plex Mono', monospace;
+				color: var(--gold);
+				font-size: 16px;
+			}
+			.drawer-foot .btn {
+				width: 100%;
+				justify-content: center;
+			}
+
+			.toast {
+				position: fixed;
+				bottom: 28px;
+				left: 50%;
+				transform: translate(-50%, 20px);
+				background: var(--white);
+				color: var(--ink);
+				padding: 14px 26px;
+				border-radius: 2px;
+				font-size: 13px;
+				font-weight: 600;
+				opacity: 0;
+				pointer-events: none;
+				transition: all 0.3s;
+				z-index: 200;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+			}
+			.toast.show {
+				opacity: 1;
+				transform: translate(-50%, 0);
+			}
+
+			@media (max-width: 960px) {
+				.navlinks {
+					display: none;
+				}
+				.cat-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				.grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				.story {
+					grid-template-columns: 1fr;
+					gap: 36px;
+				}
+				.news {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+			}
+			@media (max-width: 560px) {
+				.grid {
+					grid-template-columns: 1fr 1fr;
+					gap: 12px;
+				}
+				.wrap {
+					padding: 0 18px;
+				}
+				.hero-stats {
+					gap: 32px;
+				}
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.tagbar-track {
+					animation: none;
+				}
+				html {
+					scroll-behavior: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tagbar">
+			<div class="tagbar-track" id="tagtrack"></div>
+		</div>
+
+		<header>
+			<nav class="wrap">
+				<a href="#" class="logo">BARŚ<sup>SS26</sup></a>
+				<ul class="navlinks">
+					<li><a href="#new">Новинки</a></li>
+					<li><a href="#catalog">Каталог</a></li>
+					<li><a href="#story">О бренде</a></li>
+					<li><a href="#contact">Контакты</a></li>
+				</ul>
+				<div class="navright">
+					<button class="cart-btn" onclick="openCart()">
+						Корзина <span class="cart-count" id="cartCount">0</span>
+					</button>
+				</div>
+			</nav>
+		</header>
+
+		<section class="hero">
+			<video
+				class="hero-video"
+				autoplay
+				muted
+				loop
+				playsinline
+				preload="auto"
+				disablePictureInPicture
+			>
+				<source src="barsvideo.mp4" type="video/mp4" />
+			</video>
+			<svg
+				class="peaks"
+				viewBox="0 0 1440 220"
+				preserveAspectRatio="none"
+				fill="none"
+			>
+				<path
+					d="M0 220 L120 140 L210 190 L340 90 L430 170 L560 60 L660 150 L760 100 L880 190 L980 120 L1100 175 L1220 80 L1320 160 L1440 110 L1440 220 Z"
+					fill="#141620"
+				/>
+				<path
+					d="M0 220 L160 175 L260 210 L400 150 L520 200 L640 130 L740 185 L860 145 L960 205 L1100 160 L1200 200 L1320 150 L1440 190 L1440 220 Z"
+					fill="#0d0e12"
+				/>
+			</svg>
+			<div class="wrap hero-inner">
+				<span class="eyebrow">Бренд мужской одежды · Casual</span>
+				<h1 style="margin-top: 18px">
+					Создано<br />для <span class="accent">амбициозных</span>
+				</h1>
+				<p class="hero-sub">
+					BARŚ — казуальная одежда для тех, кто идёт своим маршрутом.
+					Плотный хлопок, чёткий крой, минимум лишнего. Как барс —
+					тихо, точно, без права на ошибку.
+				</p>
+				<div class="hero-cta">
+					<a href="#catalog" class="btn btn-primary"
+						>Смотреть коллекцию</a
+					>
+					<a href="#story" class="btn btn-ghost">О бренде</a>
+				</div>
+				<div class="hero-stats">
+					<div><b>10,3К</b><span>Подписчиков</span></div>
+					<div><b>184</b><span>Публикаций</span></div>
+					<div><b>SS/26</b><span>Актуальный дроп</span></div>
+				</div>
+			</div>
+		</section>
+
+		<div class="claw-section">
+			<div class="claw">
+				<span></span><span></span><span></span><span></span>
+			</div>
+		</div>
+
+		<section id="catalog">
+			<div class="wrap">
+				<div class="section-head">
+					<h2>Категории</h2>
+					<p>
+						От базовых футболок до очков — вся линейка BARŚ в одном
+						месте.
+					</p>
+				</div>
+				<div class="cat-grid">
+					<a href="#grid-tees" class="cat-card">
+						<svg
+							viewBox="0 0 48 48"
+							fill="none"
+							stroke="#f6f4ee"
+							stroke-width="1.6"
+						>
+							<path
+								d="M16 6 L4 14 L9 22 L14 18 L14 42 H34 V18 L39 22 L44 14 L32 6 L28 10 H20 Z"
+							/>
+						</svg>
+						<span class="count">01</span>
+						<b>Футболки</b>
+					</a>
+					<a href="#grid-glasses" class="cat-card">
+						<svg
+							viewBox="0 0 48 48"
+							fill="none"
+							stroke="#0b0c0f"
+							stroke-width="1.6"
+						>
+							<circle cx="13" cy="24" r="8" />
+							<circle cx="35" cy="24" r="8" />
+							<path d="M21 24 H27 M5 22 L8 18 M43 22 L40 18" />
+						</svg>
+						<span class="count">02</span>
+						<b>Очки</b>
+					</a>
+					<a href="#grid-polo" class="cat-card">
+						<svg
+							viewBox="0 0 48 48"
+							fill="none"
+							stroke="#f6f4ee"
+							stroke-width="1.6"
+						>
+							<path
+								d="M16 6 L4 14 L9 22 L14 18 L14 42 H34 V18 L39 22 L44 14 L32 6 L28 10 L24 14 L20 10 Z"
+							/>
+						</svg>
+						<span class="count">03</span>
+						<b>Поло</b>
+					</a>
+					<a href="#grid-hoodie" class="cat-card">
+						<svg
+							viewBox="0 0 48 48"
+							fill="none"
+							stroke="#f6f4ee"
+							stroke-width="1.6"
+						>
+							<path
+								d="M24 4 C17 4 13 9 13 14 L4 18 L8 27 L13 24 V42 H35 V24 L40 27 L44 18 L35 14 C35 9 31 4 24 4 Z"
+							/>
+							<path d="M24 4 C24 10 24 13 24 16" />
+						</svg>
+						<span class="count">04</span>
+						<b>Худи</b>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section id="new">
+			<div class="wrap">
+				<div class="section-head">
+					<h2>Новый дроп</h2>
+					<p>
+						Ограниченная партия SS/26. Разбирают быстро — как
+						всегда.
+					</p>
+				</div>
+				<div class="grid" id="productGrid"></div>
+			</div>
+		</section>
+
+		<div class="claw-section">
+			<div class="claw">
+				<span></span><span></span><span></span><span></span>
+			</div>
+		</div>
+
+		<section id="story">
+			<div class="wrap">
+				<div class="story">
+					<div class="story-media">
+						<svg
+							viewBox="0 0 120 120"
+							fill="none"
+							stroke="#c9a05c"
+							stroke-width="1.4"
+						>
+							<path
+								d="M20 80 C 30 60, 35 40, 55 35 C 65 32, 70 20, 85 22 C 78 30, 78 38, 85 42 C 70 45, 62 55, 60 68 C 58 82, 45 92, 28 90 C 22 89, 20 85, 20 80 Z"
+							/>
+							<circle cx="82" cy="30" r="1.6" fill="#c9a05c" />
+						</svg>
+					</div>
+					<div>
+						<span class="eyebrow">О бренде</span>
+						<h2 style="margin-top: 14px">Барс не бежит толпой</h2>
+						<p>
+							Барс (снежный леопард) — символ терпения и точного
+							расчёта: он выбирает момент и не ошибается. Так и
+							BARŚ — мы не гонимся за трендами каждую неделю, а
+							собираем немногочисленные, но выверенные капсулы:
+							плотные футболки, поло, худи и авторские очки.
+						</p>
+						<p>
+							Каждая вещь проходит через реальную студию бренда —
+							от примерки на своих людях до финальной партии,
+							которая уходит в шоу-рум и на сайт.
+						</p>
+						<div class="story-stats">
+							<div><b>184</b><span>Дропов и постов</span></div>
+							<div><b>SS26</b><span>Текущий сезон</span></div>
+							<div>
+								<b>100%</b><span>Хлопок в футболках</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="wrap">
+				<div class="news">
+					<h2>Узнавай о дропах первым</h2>
+					<form
+						class="news-form"
+						onsubmit="return subscribeForm(event)"
+					>
+						<input type="email" placeholder="Твоя почта" required />
+						<button type="submit">Подписаться</button>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<footer id="contact">
+			<div class="wrap">
+				<div class="foot-top">
+					<div class="foot-col">
+						<span class="logo" style="font-size: 22px">BARŚ</span>
+						<p style="margin-top: 14px; max-width: 220px">
+							Бренд мужской одежды. Casual. Создано для
+							амбициозных.
+						</p>
+					</div>
+					<div class="foot-col">
+						<h4>Каталог</h4>
+						<a href="#grid-tees">Футболки</a>
+						<a href="#grid-polo">Поло</a>
+						<a href="#grid-hoodie">Худи</a>
+						<a href="#grid-glasses">Очки</a>
+					</div>
+					<div class="foot-col">
+						<h4>Бренд</h4>
+						<a href="#story">О нас</a>
+						<a href="#">Доставка</a>
+						<a href="#">Возврат</a>
+					</div>
+					<div class="foot-col">
+						<h4>Соцсети</h4>
+						<a href="#">Instagram — @barss.official</a>
+						<a href="#">TikTok</a>
+						<a href="#">WhatsApp</a>
+					</div>
+				</div>
+				<div class="foot-bottom">
+					<span>© 2026 BARŚ. Все права защищены.</span>
+					<span>Прототип магазина · сделан для демонстрации</span>
+				</div>
+			</div>
+		</footer>
+
+		<div class="overlay" id="overlay" onclick="closeCart()"></div>
+		<aside class="drawer" id="drawer">
+			<div class="drawer-head">
+				<h3>Корзина</h3>
+				<button class="drawer-close" onclick="closeCart()">
+					&times;
+				</button>
+			</div>
+			<div class="drawer-items" id="drawerItems"></div>
+			<div class="drawer-foot">
+				<div class="drawer-sub">
+					<span>Итого</span><b id="drawerTotal">0 ₽</b>
+				</div>
+				<button class="btn btn-primary" onclick="checkout()">
+					Оформить заказ
+				</button>
+			</div>
+		</aside>
+
+		<div class="toast" id="toast"></div>
+
+		<script>
+			// ---------- brand marquee ----------
+			const tagWords = [
+				'BARŚ SS/26',
+				'NEW DROP',
+				'СОЗДАНО ДЛЯ АМБИЦИОЗНЫХ',
+				'CASUAL',
+				'BARŚ SS/26',
+				'NEW DROP',
+				'СОЗДАНО ДЛЯ АМБИЦИОЗНЫХ',
+				'CASUAL',
+			]
+			document.getElementById('tagtrack').innerHTML = tagWords
+				.concat(tagWords)
+				.map((w) => `<span>${w}</span>`)
+				.join('')
+
+			// ---------- icon library (line-art placeholders per product) ----------
+			const icons = {
+				tee: `<svg viewBox="0 0 48 48" fill="none" stroke="#f6f4ee" stroke-width="1.5"><path d="M16 6 L4 14 L9 22 L14 18 L14 42 H34 V18 L39 22 L44 14 L32 6 L28 10 H20 Z"/></svg>`,
+				polo: `<svg viewBox="0 0 48 48" fill="none" stroke="#f6f4ee" stroke-width="1.5"><path d="M16 6 L4 14 L9 22 L14 18 L14 42 H34 V18 L39 22 L44 14 L32 6 L28 10 L24 14 L20 10 Z"/></svg>`,
+				hoodie: `<svg viewBox="0 0 48 48" fill="none" stroke="#f6f4ee" stroke-width="1.5"><path d="M24 4 C17 4 13 9 13 14 L4 18 L8 27 L13 24 V42 H35 V24 L40 27 L44 18 L35 14 C35 9 31 4 24 4 Z"/></svg>`,
+				glasses: `<svg viewBox="0 0 48 48" fill="none" stroke="#0b0c0f" stroke-width="1.6"><circle cx="13" cy="24" r="8"/><circle cx="35" cy="24" r="8"/><path d="M21 24 H27 M5 22 L8 18 M43 22 L40 18"/></svg>`,
+				cap: `<svg viewBox="0 0 48 48" fill="none" stroke="#f6f4ee" stroke-width="1.5"><path d="M8 26 C8 16 15 9 24 9 C33 9 40 16 40 26 H8 Z"/><path d="M8 26 L2 28 L10 30 Z"/></svg>`,
+			}
+
+			// ---------- product catalog ----------
+			const products = [
+				{
+					id: 'l1',
+					cat: 'lookbook',
+					name: 'Коллекция SS26 #1',
+					icon: 'tee',
+					bg: '#171a22',
+					price: 7990,
+					image: 'bars1.jpg',
+				},
+				{
+					id: 'l2',
+					cat: 'lookbook',
+					name: 'Коллекция SS26 #2',
+					icon: 'tee',
+					bg: '#20242f',
+					price: 8490,
+					image: 'bars2.jpg',
+				},
+				{
+					id: 'l3',
+					cat: 'lookbook',
+					name: 'Коллекция SS26 #3',
+					icon: 'tee',
+					bg: '#171a22',
+					price: 9290,
+					image: 'bars3.jpg',
+				},
+				{
+					id: 'l4',
+					cat: 'lookbook',
+					name: 'Коллекция SS26 #4',
+					icon: 'tee',
+					bg: '#20242f',
+					price: 10000,
+					image: 'bars4.jpg',
+				},
+				{
+					id: 'p1',
+					cat: 'polo',
+					name: 'Поло BARŚ Rust',
+					icon: 'polo',
+					bg: '#c8362a',
+					price: 3490,
+				},
+			]
+
+			function money(n) {
+				return n.toLocaleString('ru-RU') + ' с'
+			}
+
+			const grid = document.getElementById('productGrid')
+			grid.innerHTML = products
+				.map(
+					(p) => `
+  <div class="card" id="grid-${p.cat === 'tees' ? 'tees' : p.cat === 'polo' ? 'polo' : p.cat === 'hoodie' ? 'hoodie' : p.cat === 'glasses' ? 'glasses' : p.cat === 'lookbook' ? 'lookbook' : 'cap'}">
+    <div class="card-media" style="background:${p.bg}">
+      ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">` : icons[p.icon]}
+      ${p.price > 0 ? `<span class="tag">${money(p.price)}</span>` : ''}
+      <button class="card-add" onclick="addToCart('${p.id}')">В корзину</button>
+    </div>
+    <div class="card-body">
+      <span class="eyebrow">${p.cat}</span>
+      <h3>${p.name}</h3>
+      ${p.price > 0 ? `<div class="card-price">${money(p.price)}</div>` : ''}
+    </div>
+  </div>
+`,
+				)
+				.join('')
+
+			// ---------- cart ----------
+			let cart = JSON.parse(localStorage.getItem('bars_cart') || '{}')
+
+			function saveCart() {
+				localStorage.setItem('bars_cart', JSON.stringify(cart))
+				renderCart()
+			}
+
+			function addToCart(id) {
+				cart[id] = (cart[id] || 0) + 1
+				saveCart()
+				showToast('Добавлено в корзину')
+				openCart()
+			}
+
+			function changeQty(id, delta) {
+				if (!cart[id]) return
+				cart[id] += delta
+				if (cart[id] <= 0) delete cart[id]
+				saveCart()
+			}
+
+			function removeItem(id) {
+				delete cart[id]
+				saveCart()
+			}
+
+			function renderCart() {
+				const entries = Object.entries(cart)
+				const countEl = document.getElementById('cartCount')
+				const itemsEl = document.getElementById('drawerItems')
+				const totalEl = document.getElementById('drawerTotal')
+
+				const totalQty = entries.reduce((s, [, q]) => s + q, 0)
+				countEl.textContent = totalQty
+
+				if (entries.length === 0) {
+					itemsEl.innerHTML =
+						'<div class="drawer-empty">Корзина пуста.<br>Барс терпелив — но не бесконечно.</div>'
+					totalEl.textContent = money(0)
+					return
+				}
+
+				let total = 0
+				itemsEl.innerHTML = entries
+					.map(([id, qty]) => {
+						const p = products.find((x) => x.id === id)
+						if (!p) return ''
+						total += p.price * qty
+						return `
+      <div class="drawer-item">
+        <div class="di-media" style="background:${p.bg}">${icons[p.icon]}</div>
+        <div class="di-info">
+          <div>
+            <span class="eyebrow">${p.cat}</span>
+            <h4>${p.name}</h4>
+          </div>
+          <div class="di-row">
+            <div class="qty">
+              <button onclick="changeQty('${id}', -1)">−</button>
+              <span>${qty}</span>
+              <button onclick="changeQty('${id}', 1)">+</button>
+            </div>
+            <span class="di-price">${money(p.price * qty)}</span>
+          </div>
+          <button class="di-remove" onclick="removeItem('${id}')">Удалить</button>
+        </div>
+      </div>`
+					})
+					.join('')
+				totalEl.textContent = money(total)
+			}
+
+			function openCart() {
+				document.getElementById('drawer').classList.add('open')
+				document.getElementById('overlay').classList.add('open')
+			}
+			function closeCart() {
+				document.getElementById('drawer').classList.remove('open')
+				document.getElementById('overlay').classList.remove('open')
+			}
+
+			const WHATSAPP_NUMBER = '996995466200' // +996 (Кыргызстан)
+
+			function checkout() {
+				if (Object.keys(cart).length === 0) {
+					showToast('Корзина пуста')
+					return
+				}
+
+				// Создаём сообщение
+				let message = 'Здравствуйте! Я бы хотел оформить заказ:\n\n'
+
+				let total = 0
+				const entries = Object.entries(cart)
+				entries.forEach(([id, qty]) => {
+					const p = products.find((x) => x.id === id)
+					if (!p) return
+					message += `• ${p.name} × ${qty} = ${money(p.price * qty)}\n`
+					total += p.price * qty
+				})
+
+				message += `\n📊 Итого: ${money(total)}\n`
+				message += `\n✅ BARŚ SS26 - создано для амбициозных`
+
+				// Кодируем для URL
+				const encodedMessage = encodeURIComponent(message)
+				const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
+
+				// Открываем WhatsApp
+				window.open(whatsappUrl, '_blank')
+
+				showToast('Переход в WhatsApp...')
+				cart = {}
+				saveCart()
+				setTimeout(closeCart, 1500)
+			}
+
+			let toastTimer
+			function showToast(msg) {
+				const t = document.getElementById('toast')
+				t.textContent = msg
+				t.classList.add('show')
+				clearTimeout(toastTimer)
+				toastTimer = setTimeout(() => t.classList.remove('show'), 2200)
+			}
+
+			function subscribeForm(e) {
+				e.preventDefault()
+				showToast('Подписка оформлена')
+				e.target.reset()
+				return false
+			}
+
+			renderCart()
+		</script>
+	</body>
+</html>
