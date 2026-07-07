@@ -862,17 +862,86 @@
 					flex-direction: column;
 					align-items: flex-start;
 				}
+				.hero {
+					background-attachment: scroll;
+				}
 			}
-			@media (max-width: 560px) {
+			@media (max-width: 768px) {
+				.hero-video {
+					will-change: auto;
+				}
+				.hero h1 {
+					font-size: clamp(36px, 8vw, 72px);
+				}
+				.hero-sub {
+					max-width: 100%;
+					font-size: 14px;
+				}
+				.hero-stats {
+					gap: 20px;
+					flex-wrap: wrap;
+				}
+			}
+			@media (max-width: 640px) {
 				.grid {
-					grid-template-columns: 1fr 1fr;
+					grid-template-columns: 1fr;
+					gap: 16px;
+				}
+				.cat-grid {
+					grid-template-columns: 1fr;
+				}
+				.wrap {
+					padding: 0 16px;
+				}
+				.hero-stats {
+					gap: 16px;
+					font-size: 12px;
+				}
+				.hero-stats div b {
+					font-size: 18px;
+				}
+				section {
+					padding: 60px 0;
+				}
+				.news {
+					padding: 40px;
+				}
+				.drawer {
+					width: 100%;
+					max-width: none;
+				}
+			}
+			@media (max-width: 480px) {
+				.grid {
+					grid-template-columns: 1fr;
 					gap: 12px;
 				}
 				.wrap {
-					padding: 0 18px;
+					padding: 0 12px;
 				}
-				.hero-stats {
-					gap: 32px;
+				.btn {
+					padding: 12px 20px;
+					font-size: 12px;
+				}
+				h1, h2 {
+					font-size: clamp(24px, 6vw, 48px);
+				}
+				.hero-cta {
+					gap: 8px;
+					margin-top: 24px;
+				}
+				.news-form {
+					min-width: 100%;
+					flex-direction: column;
+				}
+				.news-form input,
+				.news-form button {
+					width: 100%;
+				}
+				.card-add {
+					bottom: 8px;
+					left: 8px;
+					right: 8px;
 				}
 			}
 			@media (prefers-reduced-motion: reduce) {
@@ -914,8 +983,9 @@
 				muted
 				loop
 				playsinline
-				preload="auto"
+				preload="metadata"
 				disablePictureInPicture
+				loading="lazy"
 			>
 				<source src="barsvideo.mp4" type="video/mp4" />
 			</video>
@@ -1403,6 +1473,32 @@
 			}
 
 			renderCart()
+
+			// Мобильная оптимизация видео
+			const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+			const video = document.querySelector('.hero-video')
+
+			if (isMobile && video) {
+				video.preload = 'none'
+				video.autoplay = false
+
+				// Запуск видео только когда видимо
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							video.play().catch(() => {})
+						} else {
+							video.pause()
+						}
+					})
+				})
+				observer.observe(video)
+			}
+
+			// Ленивая загрузка изображений
+			document.querySelectorAll('img').forEach((img) => {
+				img.loading = 'lazy'
+			})
 		</script>
 	</body>
 </html>
